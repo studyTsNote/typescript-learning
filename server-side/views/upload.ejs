@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+</head>
+<body>
+    <input type="file" name="" id="file">
+
+    <script>
+        let startTime;
+        let uploadedSize;
+        let fileInput = document.getElementById('file');
+
+        fileInput.onchange = uploadFile;
+
+        function uploadFile() {
+            let fileObj = fileInput.files[0];
+            let url = '/api/file_upload';
+
+            let form = new FormData();
+            form.append('file', fileObj);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('post', url, true);
+            xhr.onload = uploadComplete;
+            xhr.onerror = uploadError;
+            xhr.upload.onloadstart = function () {
+                startTime = Date.now();
+                uploadedSize = 0;
+            }
+
+            xhr.send(form);
+        }
+
+        function uploadComplete(event) {
+            if (event.target.responseText === 'success') {
+                console.log('upload success');
+            } else {
+                console.error('upload failed');
+            }
+        }
+
+        function uploadError(event) {
+            console.error('upload error');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.todo-item {
+    margin-bottom: 10px;
+    text-align: left;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__text {
+        margin-right: 10px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    &--finished {
+        text-decoration: line-through;
+        // text-decoration-color: #07c160;
+    }
+
+    &__edit {
+        transition: all .2s;
+    }
+    &__edit:hover {
+        color: #1890ff;
+        transform: scale(1.3);
+    }
+}
